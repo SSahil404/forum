@@ -13,10 +13,12 @@ include "./components/_dbConnect.php"; ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
-    <title>Welcome iDiscuss - coding forums</title>
+    <title>Welcome to iDiscuss - coding forums</title>
 </head>
 
 <body>
+    <?php include "./components/_nav.php"; ?>
+
     <!-- slider -->
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -50,7 +52,6 @@ include "./components/_dbConnect.php"; ?>
         </button>
     </div>
 
-    <?php include "./components/_nav.php"; ?>
     <!-- categpry container -->
 
     <div class="container my-4">
