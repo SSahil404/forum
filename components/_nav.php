@@ -1,7 +1,7 @@
 <?php
 echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">iDiscuss</a>
+            <a class="navbar-brand" href="index.php">iDiscuss</a>
             <button 
                 class="navbar-toggler" 
                 type="button" 
@@ -16,10 +16,10 @@ echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="about.php">About</a>
                     </li>
                     <li class="nav-item dropdown">
                     <a 
@@ -40,7 +40,7 @@ echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     </ul>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link " href="#" tabindex="-1" >Contact</a>
+                    <a class="nav-link " href="contact.php">Contact</a>
                     </li>
                 </ul>
                 <form class="d-flex">
@@ -48,10 +48,13 @@ echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <button class="btn btn-success" type="submit">Search</button>
                 </form>
                 <div class="mx-2 my-2">
-                    <button class="btn btn-outline-success mx-2">Login</button>
-                    <button class="btn btn-outline-success">Sigup</button>
+                    <button class="btn btn-outline-success mx-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                    <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#signupModal">Sigup</button>
                 </div>
             </div>
         </div>
     </nav>';
+
+include "./components/_loginModal.php";
+include "./components/_signupModal.php";
 ?>
