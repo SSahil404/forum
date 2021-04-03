@@ -1,3 +1,6 @@
+<?php
+include "./components/_dbConnect.php"; ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -14,6 +17,7 @@
 </head>
 
 <body>
+    <!-- slider -->
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
@@ -47,22 +51,36 @@
     </div>
 
     <?php include "./components/_nav.php"; ?>
+    <!-- categpry container -->
 
-    <div class="container my-3">
-        <h2> iDiscuss - Browse Categories </h2>
+    <div class="container my-4">
+        <h2 class="text-center"> iDiscuss - Browse Categories </h2>
         <div class="row">
-            <div class="col-md-4">
-                <div class="card my-3" style="width: 18rem;">
-                    <img src="https://source.unsplash.com/500x300/?coding,javascript" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            ofthe card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
 
+            <?php
+            $sql = "SELECT * FROM `categories`";
+            $result = mysqli_query($conn, $sql);
+            while ($row = mysqli_fetch_assoc($result)) {
+                // echo $row["cat_id"];
+                // echo $row["cat_name"];
+                echo '<div class="col-md-4 d-flex justify-content-center">
+                        <div class="card my-4" style="width: 18rem;">
+                            <img src="https://source.unsplash.com/500x300/?coding,' .
+                    $row["cat_name"] .
+                    '" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">' .
+                    $row["cat_name"] .
+                    '</h5>
+                                <p class="card-text">' .
+                    substr($row["cat_desc"], 0, 150) .
+                    '.....</p>
+                                <a href="#" class="btn btn-primary">View Threads</a>
+                            </div>
+                        </div>
+                    </div>';
+            }
+            ?>
 
         </div>
     </div>
