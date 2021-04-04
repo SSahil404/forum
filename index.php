@@ -12,7 +12,7 @@ include "./components/_dbConnect.php"; ?>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="style.css">
     <title>Welcome to iDiscuss - coding forums</title>
 </head>
 
@@ -70,13 +70,19 @@ include "./components/_dbConnect.php"; ?>
                     $row["cat_name"] .
                     '" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">' .
+                                <h5 class="card-title">
+                                    <a href="threadsList.php?catid=' .
+                    $row["cat_id"] .
+                    '">' .
                     $row["cat_name"] .
-                    '</h5>
+                    '               </a>
+                                </h5>
                                 <p class="card-text">' .
                     substr($row["cat_desc"], 0, 150) .
                     '.....</p>
-                                <a href="#" class="btn btn-primary">View Threads</a>
+                                <a href="threadsList.php?catid=' .
+                    $row["cat_id"] .
+                    '" class="btn btn-success">View Threads</a>
                             </div>
                         </div>
                     </div>';
