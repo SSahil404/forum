@@ -28,6 +28,25 @@ include "./components/_dbConnect.php"; ?>
         $catDesc = $row["cat_desc"];
     }
     ?>
+    <?php
+    $showAlert = false;
+    $method = $_SERVER["REQUEST_METHOD"];
+    if ($method == "POST") {
+        //inserting threads into database
+        $threadTitle = $_POST["threadTitle"];
+        $threadDesc = $_POST["threadDesc"];
+        $sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) 
+        VALUES ('$threadTitle', '$threadDesc', '$id', '0', current_timestamp())";
+        $result = mysqli_query($conn, $sql);
+        $showAlert = true;
+    }
+    if ($showAlert) {
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> Your thread has been added, please wait for community to respond.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>';
+    }
+    ?>
 
     <!-- categpry container -->
 
@@ -49,13 +68,34 @@ include "./components/_dbConnect.php"; ?>
         </div>
     </div>
     <div class="container">
+        <h1 class="py-2">Start a Thread</h1>
+        <form action="<?php echo $_SERVER["REQUEST_URI"]; ?>" method="POST">
+            <div class="mb-3">
+                <label for="threadTitle" class="form-label">Problem Title</label>
+                <input type="text" class="form-control" id="threadTitle" name="threadTitle"
+                    aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">keep your title as short and crisp as possible.</div>
+            </div>
+            <div class="form-group">
+                <label for="threadDesc">Elaborate your problem</label>
+                <textarea name="threadDesc" class="form-control" id="threadDesc" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success my-2">Submit</button>
+        </form>
+    </div>
+
+    <div class="container questions">
         <h1 class="py-2">Browse Questions</h1>
         <?php
         $id = $_GET["catid"];
         $sql = "SELECT * FROM `threads` WHERE thread_cat_id=$id";
         $result = mysqli_query($conn, $sql);
+        $noResult = true;
+        // $threadID = 1;
         while ($row = mysqli_fetch_assoc($result)) {
-            $threadTitle = $row["thread_id"];
+            $noResult = false;
+            // $threadID++;
+            $threadID = $row["thread_id"];
             $threadTitle = $row["thread_title"];
             $threadDesc = $row["thread_desc"];
 
@@ -66,7 +106,9 @@ include "./components/_dbConnect.php"; ?>
                     </div>
                     <div class="flex-grow-1 ms-3 my-3">
                         <h5 class="mt-0">
-                            <a href="thread.php">' .
+                            <a href="thread.php?threadid=' .
+                $id .
+                '            ">' .
                 $threadTitle .
                 '           </a>
                         </h5>
@@ -75,8 +117,21 @@ include "./components/_dbConnect.php"; ?>
                 '   </div>
                 </div>';
         }
+        if ($noResult) {
+            echo '<div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <p class="display-4">There is no threads.</p>
+                        <hr class="my-2">
+                        <p class="lead">
+                            <b>Be the first person to start the thread!</b>
+                        </p>
+                    </div>
+                </div>';
+        }
         ?>
     </div>
+
+
 
     <?php include "./components/_footer.php"; ?>
 

@@ -2,7 +2,11 @@ a {
     text-decoration: none;
     color: #198754;
 }
-a:hover {
+h5 a:hover {
     text-decoration: underline;
     color: #198754;
+}
+.categories,
+.questions {
+    min-height: 40vh;
 }

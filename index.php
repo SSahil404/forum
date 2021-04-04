@@ -54,7 +54,7 @@ include "./components/_dbConnect.php"; ?>
 
     <!-- categpry container -->
 
-    <div class="container my-4">
+    <div class="container my-4 categories">
         <h2 class="text-center"> iDiscuss - Browse Categories </h2>
         <div class="row">
 
