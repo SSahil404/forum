@@ -36,14 +36,14 @@ include "./components/_dbConnect.php"; ?>
     if ($method == "POST") {
         //inserting threads into database
         $comment = $_POST["comment"];
-        $sql = "INSERT INTO `comments` (`comm_content`, `comm_thread_id`, `comm_time`) 
-        VALUES ('$comment', '$id', current_timestamp())";
+        $sql = "INSERT INTO `comments` (`comm_content`, `comm_thread_id`, `comm_by`, `comm_time`) 
+        VALUES ('$comment', '$id', '0', current_timestamp())";
         $result = mysqli_query($conn, $sql);
         $showAlert = true;
     }
     if ($showAlert) {
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success!</strong> Your thread has been added, please wait for community to respond.
+                <strong>Success!</strong> Your comment has been added!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>';
     }
@@ -56,9 +56,8 @@ include "./components/_dbConnect.php"; ?>
             <h1 class="display-4"><?php echo "$threadTitle"; ?></h1>
             <p class="lead"><?php echo "$comment"; ?></p>
             <hr class="my-4">
-            <b>
-                <p>Posted By: <span>SSahil</span></p>
-            </b>
+
+            <p>Posted By: <span><b>SSahil</b></span></p>
         </div>
     </div>
 
@@ -83,13 +82,17 @@ include "./components/_dbConnect.php"; ?>
         while ($row = mysqli_fetch_assoc($result)) {
             $noResult = false;
             $comment = $row["comm_content"];
+            $commentTime = $row["comm_time"];
 
             echo '<div class="d-flex align-items-center mb-2">
                     <div class="flex-shrink-0">
-                        <img src="https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png" width="60px"
-                            alt="...">
+                        <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/v_collection_png/512x512/shadow/user_generic_green.png" 
+                        width="60px" alt="...">
                     </div>
-                    <div class="flex-grow-1 ms-3 my-3">                       
+                    <div class="flex-grow-1 ms-3 my-3">   
+                    <p class="my-0"><b>User at ' .
+                $commentTime .
+                '   </b></p>                    
                 ' .
                 $comment .
                 '   </div>

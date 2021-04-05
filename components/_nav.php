@@ -1,4 +1,5 @@
 <?php
+session_start();
 echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php">iDiscuss</a>
@@ -45,16 +46,41 @@ echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 </ul>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-success" type="submit">Search</button>
-                </form>
-                <div class="mx-2 my-2">
+                    <button class="btn btn-success" type="submit">Search</button>';
+
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
+    // $user = str_split($_SESSION["userEmail"], 5);
+    echo '<p class="text-light mx-2 my-0">Welcome ' .
+        $_SESSION["userEmail"] .
+        "</p> </form>";
+    echo '<div>
+            <button class="btn btn-outline-success mx-2" data-bs-toggle="modal" data-bs-target="#loginModal">Logout</button>
+        </div>';
+} else {
+    echo '<div class="mx-2 my-2">
                     <button class="btn btn-outline-success mx-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
                     <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#signupModal">Sigup</button>
-                </div>
-            </div>
+        </div>';
+}
+echo '</div>
         </div>
     </nav>';
 
 include "./components/_loginModal.php";
 include "./components/_signupModal.php";
+if (isset($_GET["signupsuccess"]) && $_GET["signupsuccess"] == "true") {
+    echo '<div class="alert alert-success alert-dismissible fade show my-0" role="alert">
+            <strong>Success!</strong> You can now log in.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>';
+}
+if (isset($_GET["error"])) {
+    $showError = $_GET["error"];
+    echo '<div class="alert alert-warning alert-dismissible fade show my-0" role="alert">
+            <strong>Error!</strong> ' .
+        $showError .
+        '
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>';
+}
 ?>

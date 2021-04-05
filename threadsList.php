@@ -98,14 +98,18 @@ include "./components/_dbConnect.php"; ?>
             $threadID = $row["thread_id"];
             $threadTitle = $row["thread_title"];
             $threadDesc = $row["thread_desc"];
+            $threadTime = $row["timestamp"];
 
             echo '<div class="d-flex align-items-center">
                     <div class="flex-shrink-0">
-                        <img src="https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png" width="65px"
-                            alt="...">
+                        <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/v_collection_png/512x512/shadow/user_generic_green.png"
+                        width="65px" alt="...">
                     </div>
                     <div class="flex-grow-1 ms-3 my-3">
-                        <h5 class="mt-0">
+                        <p class="my-0"><b>User at ' .
+                $threadTime .
+                '       </b></p> 
+                        <h5 class="mt-0 my-0">
                             <a href="thread.php?threadid=' .
                 $threadID .
                 '            ">' .
@@ -114,7 +118,8 @@ include "./components/_dbConnect.php"; ?>
                         </h5>
                         ' .
                 $threadDesc .
-                '   </div>
+                '       
+                   </div>
                 </div>';
         }
         if ($noResult) {
