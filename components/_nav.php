@@ -51,7 +51,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
     echo '<form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-success" type="submit">Search</button>
-            <p class="text-light mx-2 my-0">Welcome ' .
+            <p class="text-light align-middle w-100 my-0 px-2">Welcome ' .
         $_SESSION["userName"] .
         "   </p> 
         </form>";

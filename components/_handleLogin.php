@@ -22,6 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo $showError = "Invalid Credentials!";
         }
+    } else {
+        echo $showError = "Invalid Credentials!";
     }
     header("Location: /forum/index.php?error=$showError");
 }

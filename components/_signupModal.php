@@ -14,8 +14,8 @@
                             aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
-                        <label for="userName" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="userName" name="userName"
+                        <label for="userEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="userEmail" name="userEmail"
                             aria-describedby="emailHelp">
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                     </div>

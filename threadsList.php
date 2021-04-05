@@ -67,22 +67,33 @@ include "./components/_dbConnect.php"; ?>
             <a class="btn btn-success btn-lg" href="#" role="button">Browse Topics</a>
         </div>
     </div>
+
+    <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == "true") {
+        echo '
     <div class="container">
         <h1 class="py-2">Start a Thread</h1>
-        <form action="<?php echo $_SERVER["REQUEST_URI"]; ?>" method="POST">
-            <div class="mb-3">
-                <label for="threadTitle" class="form-label">Problem Title</label>
-                <input type="text" class="form-control" id="threadTitle" name="threadTitle"
-                    aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">keep your title as short and crisp as possible.</div>
-            </div>
-            <div class="form-group">
-                <label for="threadDesc">Elaborate your problem</label>
-                <textarea name="threadDesc" class="form-control" id="threadDesc" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-success my-2">Submit</button>
-        </form>
+        <form action="' .
+            $_SERVER["REQUEST_URI"] .
+            '" method="POST">
+    <div class="mb-3">
+        <label for="threadTitle" class="form-label">Problem Title</label>
+        <input type="text" class="form-control" id="threadTitle" name="threadTitle" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">keep your title as short and crisp as possible.</div>
     </div>
+    <div class="form-group">
+        <label for="threadDesc">Elaborate your problem</label>
+        <textarea name="threadDesc" class="form-control" id="threadDesc" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success my-2">Submit</button>
+    </form>
+    </div>';
+    } else {
+        echo '
+        <div class="container">
+        <h1 class="py-2">Start a Thread</h1>
+            <h4>You are not Logged In, please login to post!</h4>
+        </div>';
+    } ?>
 
     <div class="container questions">
         <h1 class="py-2">Browse Questions</h1>

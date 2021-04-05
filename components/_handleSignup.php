@@ -4,12 +4,12 @@ $showError = "false";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include "_dbConnect.php";
     $user_name = $_POST["userName"];
-    $user_email = $_POST["signupEmail"];
+    $user_email = $_POST["userEmail"];
     $password = $_POST["password"];
     $cpassword = $_POST["cpassword"];
 
     //Checking the existance
-    $existSql = "SELECT * FROM `users` WHERE user_email='$user_email'";
+    $existSql = "SELECT * FROM users WHERE user_email='$user_email'";
     $existResult = mysqli_query($conn, $existSql);
     // echo $result;
     $numRows = mysqli_num_rows($existResult);
@@ -18,8 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         if ($password == $cpassword) {
             $hash = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO `users` (`user_name`,`user_email`, `user_pass`, `timestamp`)
-             VALUES ('$user_name','$user_email', '$hash', current_timestamp())";
+            $sql = "INSERT INTO users (`user_name`, `user_email`, `user_pass`, `timestamp`) VALUES ('$user_name', '$user_email', '$hash', current_timestamp())";
             $result = mysqli_query($conn, $sql);
             // echo $result;
             if ($result) {

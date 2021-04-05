@@ -61,16 +61,29 @@ include "./components/_dbConnect.php"; ?>
         </div>
     </div>
 
+
+
+    <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == "true") {
+        echo '
+        <div class="container">
+        <h1 class="py-2">Post a comment</h1>
+        <form action="' .
+            $_SERVER["REQUEST_URI"] .
+            '" method="POST">
+    <div class="form-group">
+        <label for="comment">Type your Comment</label>
+        <textarea name="comment" class="form-control" id="comment" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success my-2">Post Comment</button>
+    </form>
+    </div>';
+    } else {
+        echo '
     <div class="container">
         <h1 class="py-2">Post a comment</h1>
-        <form action="<?php echo $_SERVER["REQUEST_URI"]; ?>" method="POST">
-            <div class="form-group">
-                <label for="comment">Type your Comment</label>
-                <textarea name="comment" class="form-control" id="comment" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-success my-2">Post Comment</button>
-        </form>
-    </div>
+        <h4>You are not Logged In, please login to post!</h4>
+    </div>';
+    } ?>
 
     <div class="container questions">
         <h1 class="py-2">Dicussions</h1>
