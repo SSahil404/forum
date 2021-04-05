@@ -44,23 +44,42 @@ echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <a class="nav-link " href="contact.php">Contact</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-success" type="submit">Search</button>';
+                ';
 
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
     // $user = str_split($_SESSION["userEmail"], 5);
-    echo '<p class="text-light mx-2 my-0">Welcome ' .
-        $_SESSION["userEmail"] .
-        "</p> </form>";
+    echo '<form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-success" type="submit">Search</button>
+            <p class="text-light mx-2 my-0">Welcome ' .
+        $_SESSION["userName"] .
+        "   </p> 
+        </form>";
     echo '<div>
-            <button class="btn btn-outline-success mx-2" data-bs-toggle="modal" data-bs-target="#loginModal">Logout</button>
+            <a href="components/_logout.php">
+                <button class="btn btn-outline-success mx-2">Logout</button>
+            </a>        
         </div>';
 } else {
-    echo '<div class="mx-2 my-2">
-                    <button class="btn btn-outline-success mx-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-                    <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#signupModal">Sigup</button>
-        </div>';
+    echo '<div class="row">
+            <div class="mx-2 my-2">
+                <button
+                class="btn btn-outline-success mx-2"
+                data-bs-toggle="modal"
+                data-bs-target="#loginModal"
+                >
+                    Login
+                </button>
+                <button
+                class="btn btn-outline-success"
+                data-bs-toggle="modal"
+                data-bs-target="#signupModal"
+                >
+                    Sigup
+                </button>
+            </div>
+        </div>
+        </form>"';
 }
 echo '</div>
         </div>

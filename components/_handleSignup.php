@@ -3,6 +3,7 @@ $showError = "false";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include "_dbConnect.php";
+    $user_name = $_POST["userName"];
     $user_email = $_POST["signupEmail"];
     $password = $_POST["password"];
     $cpassword = $_POST["cpassword"];
@@ -17,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         if ($password == $cpassword) {
             $hash = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO `users` (`user_email`, `user_pass`, `timestamp`)
-             VALUES ('$user_email', '$hash', current_timestamp())";
+            $sql = "INSERT INTO `users` (`user_name`,`user_email`, `user_pass`, `timestamp`)
+             VALUES ('$user_name','$user_email', '$hash', current_timestamp())";
             $result = mysqli_query($conn, $sql);
             // echo $result;
             if ($result) {
