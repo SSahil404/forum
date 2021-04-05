@@ -27,7 +27,25 @@ include "./components/_dbConnect.php"; ?>
     while ($row = mysqli_fetch_assoc($result)) {
         $noResult = false;
         $threadTitle = $row["thread_title"];
-        $threadDesc = $row["thread_desc"];
+        $comment = $row["thread_desc"];
+    }
+    ?>
+    <?php
+    $showAlert = false;
+    $method = $_SERVER["REQUEST_METHOD"];
+    if ($method == "POST") {
+        //inserting threads into database
+        $comment = $_POST["comment"];
+        $sql = "INSERT INTO `comments` (`comm_content`, `comm_thread_id`, `comm_time`) 
+        VALUES ('$comment', '$id', current_timestamp())";
+        $result = mysqli_query($conn, $sql);
+        $showAlert = true;
+    }
+    if ($showAlert) {
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> Your thread has been added, please wait for community to respond.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>';
     }
     ?>
 
@@ -36,37 +54,44 @@ include "./components/_dbConnect.php"; ?>
     <div class="container my-4">
         <div class="jumbotron">
             <h1 class="display-4"><?php echo "$threadTitle"; ?></h1>
-            <p class="lead"><?php echo "$threadDesc"; ?></p>
+            <p class="lead"><?php echo "$comment"; ?></p>
             <hr class="my-4">
             <b>
                 <p>Posted By: <span>SSahil</span></p>
             </b>
         </div>
     </div>
+
+    <div class="container">
+        <h1 class="py-2">Post a comment</h1>
+        <form action="<?php echo $_SERVER["REQUEST_URI"]; ?>" method="POST">
+            <div class="form-group">
+                <label for="comment">Type your Comment</label>
+                <textarea name="comment" class="form-control" id="comment" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success my-2">Post Comment</button>
+        </form>
+    </div>
+
     <div class="container questions">
         <h1 class="py-2">Dicussions</h1>
-        <!-- <?php
-        $id = $_GET["catid"];
-        $sql = "SELECT * FROM `threads` WHERE thread_cat_id=$id";
-        $result = mysqli_query($conn, $sql);
-        while ($row = mysqli_fetch_assoc($result)) {
-            $threadTitle = $row["thread_id"];
-            $threadTitle = $row["thread_title"];
-            $threadDesc = $row["thread_desc"];
 
-            echo '<div class="d-flex align-items-center">
+        <?php
+        $sql = "SELECT * FROM `comments` WHERE comm_thread_id=$id";
+        $result = mysqli_query($conn, $sql);
+        $noResult = true;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $noResult = false;
+            $comment = $row["comm_content"];
+
+            echo '<div class="d-flex align-items-center mb-2">
                     <div class="flex-shrink-0">
-                        <img src="https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png" width="65px"
+                        <img src="https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png" width="60px"
                             alt="...">
                     </div>
-                    <div class="flex-grow-1 ms-3 my-3">
-                        <h5 class="mt-0">
-                            <a href="thread.php">' .
-                $threadTitle .
-                '           </a>
-                        </h5>
-                        ' .
-                $threadDesc .
+                    <div class="flex-grow-1 ms-3 my-3">                       
+                ' .
+                $comment .
                 '   </div>
                 </div>';
         }
@@ -81,7 +106,8 @@ include "./components/_dbConnect.php"; ?>
             </div>
             </div>';
         }
-        ?> -->
+        ?>
+
     </div>
 
     <?php include "./components/_footer.php"; ?>

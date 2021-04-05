@@ -107,7 +107,7 @@ include "./components/_dbConnect.php"; ?>
                     <div class="flex-grow-1 ms-3 my-3">
                         <h5 class="mt-0">
                             <a href="thread.php?threadid=' .
-                $id .
+                $threadID .
                 '            ">' .
                 $threadTitle .
                 '           </a>
