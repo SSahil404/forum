@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             session_start();
             $_SESSION["loggedin"] = true;
             $_SESSION["userEmail"] = $email;
+            $_SESSION["userid"] = $row["user_id"];
             $_SESSION["userName"] = $row["user_name"];
 
             header("Location: /forum/index.php");

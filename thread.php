@@ -36,8 +36,9 @@ include "./components/_dbConnect.php"; ?>
     if ($method == "POST") {
         //inserting threads into database
         $comment = $_POST["comment"];
+        $userid = $_POST["userid"];
         $sql = "INSERT INTO `comments` (`comm_content`, `comm_thread_id`, `comm_by`, `comm_time`) 
-        VALUES ('$comment', '$id', '0', current_timestamp())";
+        VALUES ('$comment', '$id', '$userid', current_timestamp())";
         $result = mysqli_query($conn, $sql);
         $showAlert = true;
     }
@@ -57,7 +58,14 @@ include "./components/_dbConnect.php"; ?>
             <p class="lead"><?php echo "$comment"; ?></p>
             <hr class="my-4">
 
-            <p>Posted By: <span><b>SSahil</b></span></p>
+            <p>
+                Posted By:
+                <span>
+                    <b>
+                        <?php echo $user; ?>
+                    </b>
+                </span>
+            </p>
         </div>
     </div>
 
@@ -66,17 +74,20 @@ include "./components/_dbConnect.php"; ?>
     <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == "true") {
         echo '
         <div class="container">
-        <h1 class="py-2">Post a comment</h1>
-        <form action="' .
+            <h1 class="py-2">Post a comment</h1>
+            <form action="' .
             $_SERVER["REQUEST_URI"] .
             '" method="POST">
-    <div class="form-group">
-        <label for="comment">Type your Comment</label>
-        <textarea name="comment" class="form-control" id="comment" rows="3"></textarea>
-    </div>
-    <button type="submit" class="btn btn-success my-2">Post Comment</button>
-    </form>
-    </div>';
+                <div class="form-group">
+                    <label for="comment">Type your Comment</label>
+                    <textarea name="comment" class="form-control" id="comment" rows="3"></textarea>
+                    <input type="hidden" name="userid" value="' .
+            $_SESSION["userid"] .
+            '       ">
+                </div>
+                <button type="submit" class="btn btn-success my-2">Post Comment</button>
+            </form>
+        </div>';
     } else {
         echo '
     <div class="container">
@@ -96,6 +107,12 @@ include "./components/_dbConnect.php"; ?>
             $noResult = false;
             $comment = $row["comm_content"];
             $commentTime = $row["comm_time"];
+            $threadUserId = $row["comm_by"];
+
+            $sql2 = "SELECT user_name FROM `users` WHERE user_id='$threadUserId'";
+            $result2 = mysqli_query($conn, $sql2);
+            $row2 = mysqli_fetch_assoc($result2);
+            $user = $row2["user_name"];
 
             echo '<div class="d-flex align-items-center mb-2">
                     <div class="flex-shrink-0">
@@ -103,7 +120,9 @@ include "./components/_dbConnect.php"; ?>
                         width="60px" alt="...">
                     </div>
                     <div class="flex-grow-1 ms-3 my-3">   
-                    <p class="my-0"><b>User at ' .
+                    <p class="my-0"><b>' .
+                $user .
+                " at " .
                 $commentTime .
                 '   </b></p>                    
                 ' .

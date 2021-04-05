@@ -35,8 +35,9 @@ include "./components/_dbConnect.php"; ?>
         //inserting threads into database
         $threadTitle = $_POST["threadTitle"];
         $threadDesc = $_POST["threadDesc"];
+        $userid = $_POST["userid"];
         $sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) 
-        VALUES ('$threadTitle', '$threadDesc', '$id', '0', current_timestamp())";
+        VALUES ('$threadTitle', '$threadDesc', '$id', '$userid', current_timestamp())";
         $result = mysqli_query($conn, $sql);
         $showAlert = true;
     }
@@ -83,6 +84,9 @@ include "./components/_dbConnect.php"; ?>
     <div class="form-group">
         <label for="threadDesc">Elaborate your problem</label>
         <textarea name="threadDesc" class="form-control" id="threadDesc" rows="3"></textarea>
+        <input type="hidden" name="userid" value="' .
+            $_SESSION["userid"] .
+            '       ">
     </div>
     <button type="submit" class="btn btn-success my-2">Submit</button>
     </form>
@@ -110,6 +114,12 @@ include "./components/_dbConnect.php"; ?>
             $threadTitle = $row["thread_title"];
             $threadDesc = $row["thread_desc"];
             $threadTime = $row["timestamp"];
+            $threadUserId = $row["thread_user_id"];
+
+            $sql2 = "SELECT user_name FROM `users` WHERE user_id='$threadUserId'";
+            $result2 = mysqli_query($conn, $sql2);
+            $row2 = mysqli_fetch_assoc($result2);
+            $user = $row2["user_name"];
 
             echo '<div class="d-flex align-items-center">
                     <div class="flex-shrink-0">
@@ -117,9 +127,6 @@ include "./components/_dbConnect.php"; ?>
                         width="65px" alt="...">
                     </div>
                     <div class="flex-grow-1 ms-3 my-3">
-                        <p class="my-0"><b>User at ' .
-                $threadTime .
-                '       </b></p> 
                         <h5 class="mt-0 my-0">
                             <a href="thread.php?threadid=' .
                 $threadID .
@@ -131,6 +138,11 @@ include "./components/_dbConnect.php"; ?>
                 $threadDesc .
                 '       
                    </div>
+                   <p class="my-0">Asked By: <b>' .
+                $user .
+                " at " .
+                $threadTime .
+                '       </b></p> 
                 </div>';
         }
         if ($noResult) {
