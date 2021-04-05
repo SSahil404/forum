@@ -20,10 +20,12 @@
                         <!-- <input type="hidden" name="userid" value='$userid'> -->
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button submit" class="btn btn-success">Add Category</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
+
             </form>
         </div>
     </div>

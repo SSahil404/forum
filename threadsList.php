@@ -77,7 +77,7 @@ include "./components/_dbConnect.php"; ?>
 
     <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == "true") {
         echo '
-    <div class="container">
+    <div class="container mb-3">
         <h1 class="py-2">Start a Thread</h1>
         <form action="' .
             $_SERVER["REQUEST_URI"] .
@@ -105,7 +105,7 @@ include "./components/_dbConnect.php"; ?>
         </div>';
     } ?>
 
-    <div class="container questions">
+    <div class="container questions mb-5">
         <h1 class="py-2">Browse Questions</h1>
         <?php
         $id = $_GET["catid"];

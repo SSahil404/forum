@@ -19,10 +19,11 @@ echo '
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="about.php">About</a>
-                </li>
+                </li>';
+// <li class="nav-item">
+// <a class="nav-link" href="about.php">About</a>
+// </li>
+echo '
                 <li class="nav-item dropdown">
                 <a 
                     class="nav-link dropdown-toggle" 
@@ -42,35 +43,43 @@ while ($row = mysqli_fetch_assoc($result)) {
     $catName = $row["cat_name"];
     $catId = $row["cat_id"];
     echo '
-        <li><a class="dropdown-item" href="' .
+        <li><a class="dropdown-item" href="/forum/threadsList.php?catid=' .
         $catId .
         '">' .
         $catName .
         "</a></li>";
 }
-
-echo '
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == "true") {
+    echo '
         <li><hr class="dropdown-divider"></li>
-                <li><button
-                class="btn btn-outline-success mx-2"
-                data-bs-toggle="modal"
-                data-bs-target="#catModal"
-                >
-                    Add a new category
-                </button></li>
+        <li><button
+        class="btn btn-outline-success mx-2"
+        data-bs-toggle="modal"
+        data-bs-target="#catModal"
+        >
+            Add a new category
+        </button></li>
+                ';
+    include "_categoryModal.php";
+} else {
+    echo '
+        <li><hr class="dropdown-divider"></li>
+        <li class="px-2">Login to add new category</li>
+    ';
+}
+echo '
             </ul>
         </li>
-        <li class="nav-item">
-            <a class="nav-link " href="contact.php">Contact</a>
-        </li>
-    </ul>
-                ';
-include "_categoryModal.php";
+    </ul>';
+// echo '<li class="nav-item">
+//             <a class="nav-link " href="contact.php">Contact</a>
+//         </li>
+//     </ul>';
 
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
     // $user = str_split($_SESSION["userEmail"], 5);
-    echo '<form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    echo '<form class="d-flex" action="/forum/search.php" method="GET">
+            <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-success" type="submit">Search</button>
             <p class="text-light username w-100">Welcome ' .
         $_SESSION["userName"] .

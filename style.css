@@ -2,8 +2,10 @@ a {
     text-decoration: none;
     color: #198754;
 }
+h3 a:hover,
 h5 a:hover {
     text-decoration: underline;
+    color: #198754;
     color: #198754;
 }
 .categories,
@@ -15,4 +17,12 @@ h5 a:hover {
     margin-bottom: 0;
     align-items: center;
     justify-content: center;
+}
+.search {
+    min-height: 85vh;
+    /* background: red; */
+}
+.jumbotron {
+    background-color: rgb(241, 241, 241);
+    padding: 1rem;
 }

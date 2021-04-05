@@ -68,7 +68,6 @@ include "./components/_dbConnect.php"; ?>
             <h1 class="display-4"><?php echo "$threadTitle"; ?></h1>
             <p class="lead"><?php echo "$comment"; ?></p>
             <hr class="my-4">
-
             <p>
                 Posted By:
                 <span>
@@ -84,7 +83,7 @@ include "./components/_dbConnect.php"; ?>
 
     <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == "true") {
         echo '
-        <div class="container">
+        <div class="container mb-3">
             <h1 class="py-2">Post a comment</h1>
             <form action="' .
             $_SERVER["REQUEST_URI"] .
@@ -107,7 +106,7 @@ include "./components/_dbConnect.php"; ?>
     </div>';
     } ?>
 
-    <div class="container questions">
+    <div class="container questions mb-5">
         <h1 class="py-2">Dicussions</h1>
 
         <?php
