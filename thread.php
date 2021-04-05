@@ -28,15 +28,26 @@ include "./components/_dbConnect.php"; ?>
         $noResult = false;
         $threadTitle = $row["thread_title"];
         $comment = $row["thread_desc"];
+
+        $threadUserId = $row["thread_user_id"];
+
+        $sql2 = "SELECT user_name FROM `users` WHERE user_id='$threadUserId'";
+        $result2 = mysqli_query($conn, $sql2);
+        $row2 = mysqli_fetch_assoc($result2);
+        $user = $row2["user_name"];
     }
     ?>
+
     <?php
     $showAlert = false;
     $method = $_SERVER["REQUEST_METHOD"];
     if ($method == "POST") {
         //inserting threads into database
         $comment = $_POST["comment"];
+        $comment = str_replace("<", "&lt;", $comment);
+        $comment = str_replace(">", "&gt;", $comment);
         $userid = $_POST["userid"];
+
         $sql = "INSERT INTO `comments` (`comm_content`, `comm_thread_id`, `comm_by`, `comm_time`) 
         VALUES ('$comment', '$id', '$userid', current_timestamp())";
         $result = mysqli_query($conn, $sql);
@@ -62,7 +73,7 @@ include "./components/_dbConnect.php"; ?>
                 Posted By:
                 <span>
                     <b>
-                        <?php echo $user; ?>
+                        <em><?php echo $user; ?></em>
                     </b>
                 </span>
             </p>
@@ -133,10 +144,10 @@ include "./components/_dbConnect.php"; ?>
         if ($noResult) {
             echo '<div class="jumbotron jumbotron-fluid">
             <div class="container">
-            <p class="display-4">There is no threads.</p>
+            <p class="display-4">There is no comments.</p>
             <hr class="my-2">
             <p class="lead">
-            <b>Be the first person to start the thread!</b>
+            <b>Be the first person to comment!</b>
             </p>
             </div>
             </div>';

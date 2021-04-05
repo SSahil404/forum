@@ -10,3 +10,9 @@ h5 a:hover {
 .questions {
     min-height: 40vh;
 }
+.username {
+    display: flex;
+    margin-bottom: 0;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,5 +1,4 @@
-<?php
-include "./components/_dbConnect.php"; ?>
+<?php include "./components/_dbConnect.php"; ?>
 
 <!doctype html>
 <html lang="en">
@@ -52,7 +51,7 @@ include "./components/_dbConnect.php"; ?>
         </button>
     </div>
 
-    <!-- categpry container -->
+    <!-- category container -->
 
     <div class="container my-4 categories">
         <h2 class="text-center"> iDiscuss - Browse Categories </h2>

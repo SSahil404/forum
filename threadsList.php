@@ -34,7 +34,13 @@ include "./components/_dbConnect.php"; ?>
     if ($method == "POST") {
         //inserting threads into database
         $threadTitle = $_POST["threadTitle"];
+        $threadTitle = str_replace("<", "&lt;", $threadTitle);
+        $threadTitle = str_replace(">", "&gt;", $threadTitle);
+
         $threadDesc = $_POST["threadDesc"];
+        $threadDesc = str_replace("<", "&lt;", $threadDesc);
+        $threadDesc = str_replace(">", "&gt;", $threadDesc);
+
         $userid = $_POST["userid"];
         $sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) 
         VALUES ('$threadTitle', '$threadDesc', '$id', '$userid', current_timestamp())";
@@ -65,7 +71,7 @@ include "./components/_dbConnect.php"; ?>
                 <li>Do not cross post questions.</li>
                 <li>Remain respectful of other members at all times.</li>
             </ul>
-            <a class="btn btn-success btn-lg" href="#" role="button">Browse Topics</a>
+            <!-- <a class="btn btn-success btn-lg" href="#" role="button">Browse Topics</a> -->
         </div>
     </div>
 

@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // echo $result;
             if ($result) {
                 $showAlert = true;
-                echo $result;
+                // echo $result;
                 header("Location: /forum/index.php?signupsuccess=true");
                 exit();
             }
