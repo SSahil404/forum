@@ -1,5 +1,3 @@
-<?php $userid = $_SESSION["userid"]; ?>
-
 <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="catModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -17,7 +15,9 @@
                     <div class="mb-3">
                         <label for="catDesc">Category Description</label>
                         <textarea name="catDesc" class="form-control" id="catDesc" rows="3"></textarea>
-                        <input type="hidden" name="userid" value='<?php echo $userid; ?>'>
+                        <input type="hidden" name="userid" value='<?php echo $_SESSION[
+                            "userid"
+                        ]; ?>'>
                     </div>
                 </div>
 
