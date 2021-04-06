@@ -53,14 +53,13 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == "true") {
     echo '
         <li><hr class="dropdown-divider"></li>
         <li><button
-        class="btn btn-outline-success mx-2"
-        data-bs-toggle="modal"
-        data-bs-target="#catModal"
+            class="btn btn-outline-success mx-2"
+            data-bs-toggle="modal"
+            data-bs-target="#categoryModal"
         >
             Add a new category
         </button></li>
                 ';
-    include "_categoryModal.php";
 } else {
     echo '
         <li><hr class="dropdown-divider"></li>
@@ -87,7 +86,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
         </form>";
     echo '<div>
             <a href="components/_logout.php">
-                <button class="btn btn-outline-success mx-2">Logout</button>
+                <button class="btn btn-outline-success m-2">Logout</button>
             </a>        
         </div>';
 } else {
@@ -117,6 +116,7 @@ echo '</div>
 
 include "./components/_loginModal.php";
 include "./components/_signupModal.php";
+include "./components/_categoryModal.php";
 
 if (isset($_GET["signupsuccess"]) && $_GET["signupsuccess"] == "true") {
     echo '<div class="alert alert-success alert-dismissible fade show my-0" role="alert">

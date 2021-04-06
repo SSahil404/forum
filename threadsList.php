@@ -26,6 +26,12 @@ include "./components/_dbConnect.php"; ?>
     while ($row = mysqli_fetch_assoc($result)) {
         $catName = $row["cat_name"];
         $catDesc = $row["cat_desc"];
+        $catCreatedBy = $row["created_by"];
+
+        $sql2 = "SELECT user_name FROM `users` WHERE user_id ='$catCreatedBy'";
+        $result2 = mysqli_query($conn, $sql2);
+        $row2 = mysqli_fetch_assoc($result2);
+        $user = $row2["user_name"];
     }
     ?>
     <?php
@@ -61,6 +67,7 @@ include "./components/_dbConnect.php"; ?>
         <div class="jumbotron">
             <h1 class="display-4">Welcome to <?php echo "$catName"; ?> Forums</h1>
             <p class="lead"><?php echo "$catDesc"; ?></p>
+            <p class="lead">Created By: <b><em><?php echo "$user"; ?></em></b></p>
             <hr class="my-4">
             <p>This is a peer to peer forum</p>
             <p>Mantain Some Rules - </p>
