@@ -27,8 +27,7 @@ include "./components/_dbConnect.php"; ?>
     while ($row = mysqli_fetch_assoc($result)) {
         $noResult = false;
         $threadTitle = $row["thread_title"];
-        $comment = $row["thread_desc"];
-
+        $threadComment = $row["thread_desc"];
         $threadUserId = $row["thread_user_id"];
 
         $sql2 = "SELECT user_name FROM `users` WHERE user_id='$threadUserId'";
@@ -66,7 +65,7 @@ include "./components/_dbConnect.php"; ?>
     <div class="container my-4">
         <div class="jumbotron">
             <h1 class="display-4"><?php echo "$threadTitle"; ?></h1>
-            <p class="lead"><?php echo "$comment"; ?></p>
+            <p class="lead"><?php echo "$threadComment"; ?></p>
             <hr class="my-4">
             <p>
                 Posted By:
@@ -118,7 +117,6 @@ include "./components/_dbConnect.php"; ?>
             $comment = $row["comm_content"];
             $commentTime = $row["comm_time"];
             $threadUserId = $row["comm_by"];
-
             $sql2 = "SELECT user_name FROM `users` WHERE user_id='$threadUserId'";
             $result2 = mysqli_query($conn, $sql2);
             $row2 = mysqli_fetch_assoc($result2);
